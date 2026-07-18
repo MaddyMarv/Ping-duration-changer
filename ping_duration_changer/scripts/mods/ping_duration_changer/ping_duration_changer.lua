@@ -45,12 +45,12 @@ local function should_apply_settings(tagger_player)
 	if not tagger_player then
 		return true
 	end
-	
+
 	local local_player = Managers.player and Managers.player:local_player(1)
 	local success, is_local = pcall(function()
 		return local_player and tagger_player.unique_id and tagger_player:unique_id() == local_player:unique_id()
 	end)
-	
+
 	if success and is_local then
 		return mod:get("use_on_your_pings") ~= false
 	else
@@ -61,11 +61,11 @@ end
 mod:hook("EventManager", "trigger", function(func, self, event_name, ...)
 	if event_name == "event_smart_tag_created" then
 		local tag_instance = select(1, ...)
-		
+
 		if tag_instance then
 			local success, tagger_player = pcall(function() return tag_instance:tagger_player() end)
 			local success2, tag_group = pcall(function() return tag_instance:group() end)
-			
+
 			if success and success2 and tag_group and should_apply_settings(tagger_player) then
 				if is_group_disabled(tag_group) then
 					return
@@ -73,17 +73,17 @@ mod:hook("EventManager", "trigger", function(func, self, event_name, ...)
 			end
 		end
 	end
-	
+
 	func(self, event_name, ...)
 end)
 
 mod:hook("SmartTagSystem", "_create_tag_locally", function(func, self, tag_id, template_name, tagger_unit, target_unit, target_location, replies, is_hotjoin_synced)
 	local tag = func(self, tag_id, template_name, tagger_unit, target_unit, target_location, replies, is_hotjoin_synced)
-	
+
 	if tag then
 		local success1, tagger_player = pcall(function() return tag:tagger_player() end)
 		local success2, tag_group = pcall(function() return tag:group() end)
-		
+
 		if success1 and success2 and tag_group and should_apply_settings(tagger_player) then
 			local success3 = pcall(function()
 				if is_group_disabled(tag_group) then
@@ -98,7 +98,7 @@ mod:hook("SmartTagSystem", "_create_tag_locally", function(func, self, tag_id, t
 			end)
 		end
 	end
-	
+
 	return tag
 end)
 
@@ -107,18 +107,18 @@ mod:hook("SmartTagSystem", "set_tag", function(func, self, template_name, tagger
 		local SmartTagSettings = require("scripts/settings/smart_tag/smart_tag_settings")
 		if SmartTagSettings and SmartTagSettings.templates then
 			local template = SmartTagSettings.templates[template_name]
-			
+
 			if template and template.group and type(template.group) == "string" then
 				local player_unit_spawn = Managers.state and Managers.state.player_unit_spawn
 				local tagger_player = tagger_unit and player_unit_spawn and player_unit_spawn:owner(tagger_unit) or nil
-				
+
 				if should_apply_settings(tagger_player) and is_group_disabled(template.group) then
 					return
 				end
 			end
 		end
 	end
-	
+
 	return func(self, template_name, tagger_unit, target_unit, target_location)
 end)
 
@@ -126,14 +126,14 @@ mod:hook("HudElementSmartTagging", "event_smart_tag_created", function(func, sel
 	if tag_instance then
 		local success1, tagger_player = pcall(function() return tag_instance:tagger_player() end)
 		local success2, tag_group = pcall(function() return tag_instance:group() end)
-		
+
 		if success1 and success2 and tag_group and should_apply_settings(tagger_player) then
 			if is_group_disabled(tag_group) then
 				return
 			end
 		end
 	end
-	
+
 	func(self, tag_instance, is_hotjoin_synced)
 end)
 
@@ -141,14 +141,14 @@ mod:hook("HudElementSmartTagging", "_add_smart_tag_presentation", function(func,
 	if tag_instance then
 		local success1, tagger_player = pcall(function() return tag_instance:tagger_player() end)
 		local success2, tag_group = pcall(function() return tag_instance:group() end)
-		
+
 		if success1 and success2 and tag_group and should_apply_settings(tagger_player) then
 			if is_group_disabled(tag_group) then
 				return
 			end
 		end
 	end
-	
+
 	func(self, tag_instance, is_hotjoin_synced)
 end)
 
@@ -156,17 +156,14 @@ mod:hook("HudElementSmartTagging", "_play_tag_sound", function(func, self, tag_i
 	if tag_instance then
 		local success1, tagger_player = pcall(function() return tag_instance:tagger_player() end)
 		local success2, tag_group = pcall(function() return tag_instance:group() end)
-		
-		-- Mute ping voice lines if the tag group is disabled
+
 		if success1 and success2 and tag_group and should_apply_settings(tagger_player) then
 			if is_group_disabled(tag_group) then
-				-- Return early without calling the original function to mute the sound
 				return
 			end
 		end
 	end
-	
-	-- Call original function to play the sound if tag group is not disabled
+
 	func(self, tag_instance, event_name)
 end)
 
@@ -174,7 +171,7 @@ mod:hook("SmartTag", "is_valid", function(func, self, t)
 	local success1, tagger_player = pcall(function() return self:tagger_player() end)
 	local success2, tag_group = pcall(function() return self:group() end)
 	local success3, expire_time = pcall(function() return self:expire_time() end)
-	
+
 	if success1 and success2 and success3 and tag_group and should_apply_settings(tagger_player) then
 		if not is_group_disabled(tag_group) then
 			if expire_time then
@@ -182,40 +179,40 @@ mod:hook("SmartTag", "is_valid", function(func, self, t)
 					return false, REMOVE_TAG_REASONS.expired
 				else
 					local is_valid, remove_reason = func(self, t)
-					
+
 					if not is_valid and remove_reason == REMOVE_TAG_REASONS.expired then
 						return true
 					end
-					
+
 					return is_valid, remove_reason
 				end
 			end
 		end
 	end
-	
+
 	return func(self, t)
 end)
 
 mod:hook("SmartTagSystem", "update", function(func, self, context, dt, t, ...)
 	func(self, context, dt, t, ...)
-	
+
 	if not self._all_tags then
 		return
 	end
-	
+
 	local tags_to_remove = {}
-	
+
 	for tag_id, tag in pairs(self._all_tags) do
 		if tag then
 			local success1, tagger_player = pcall(function() return tag:tagger_player() end)
 			local success2, tag_group = pcall(function() return tag:group() end)
 			local success3, expire_time = pcall(function() return tag:expire_time() end)
-			
+
 			if success1 and success2 and success3 and tag_group and should_apply_settings(tagger_player) then
 				local target_valid = true
 				local success4, target_unit = pcall(function() return tag:target_unit() end)
 				if success4 and target_unit then
-					local success5, target_extension = pcall(function() 
+					local success5, target_extension = pcall(function()
 						return ScriptUnit.has_extension(target_unit, "smart_tag_system")
 					end)
 					if not success5 or not target_extension then
@@ -233,18 +230,18 @@ mod:hook("SmartTagSystem", "update", function(func, self, context, dt, t, ...)
 			end
 		end
 	end
-	
+
 	for _, removal_data in ipairs(tags_to_remove) do
 		if self._remove_tag_locally then
 			pcall(function() self:_remove_tag_locally(removal_data.tag_id, removal_data.reason) end)
 		end
-		
+
 		if self._is_server then
 			local game_session = Managers.state and Managers.state.game_session
 			if game_session and game_session.send_rpc_clients then
 				local REMOVE_TAG_REASONS_LOOKUP = table.mirror_array_inplace(table.keys(REMOVE_TAG_REASONS))
 				local reason_id = REMOVE_TAG_REASONS_LOOKUP[removal_data.reason]
-				
+
 				if reason_id then
 					pcall(function() game_session:send_rpc_clients("rpc_remove_smart_tag", removal_data.tag_id, reason_id) end)
 				end
@@ -256,33 +253,30 @@ end)
 mod:hook("SmartTagSystem", "_remove_tag_locally", function(func, self, tag_id, reason)
 	if not self._is_server and self._all_tags then
 		local tag = self._all_tags[tag_id]
-		
+
 		if tag then
 			local success1, tagger_player = pcall(function() return tag:tagger_player() end)
 			local success2, tag_group = pcall(function() return tag:group() end)
 			local success3, expire_time = pcall(function() return tag:expire_time() end)
 			local success4, target_unit = pcall(function() return tag:target_unit() end)
-			
-			-- Only prevent removal if tag is still valid and target unit exists (if it has one)
+
 			local target_valid = true
 			if success4 and target_unit then
-				-- Check if target unit still exists and has smart tag extension
-				local success5, target_extension = pcall(function() 
+				local success5, target_extension = pcall(function()
 					return ScriptUnit.has_extension(target_unit, "smart_tag_system")
 				end)
 				if not success5 or not target_extension then
-					-- Target unit is invalid or destroyed, allow removal
 					target_valid = false
 				end
 			end
-			
+
 			if success1 and success2 and success3 and success4 and target_valid and tag_group and should_apply_settings(tagger_player) then
 				if not is_group_disabled(tag_group) then
 					if expire_time and reason == REMOVE_TAG_REASONS.expired then
 						local time_manager = Managers.time
 						if time_manager then
 							local t = time_manager:time("gameplay")
-							
+
 							if t < expire_time then
 								return
 							end
@@ -292,7 +286,7 @@ mod:hook("SmartTagSystem", "_remove_tag_locally", function(func, self, tag_id, r
 			end
 		end
 	end
-	
+
 	if self._all_tags then
 		local tag = self._all_tags[tag_id]
 		if tag then
@@ -300,7 +294,7 @@ mod:hook("SmartTagSystem", "_remove_tag_locally", function(func, self, tag_id, r
 			if tagger_unit and not self._unit_extension_data[tagger_unit] then
 				tag:clear_tagger()
 			end
-			
+
 			local replies = tag:replies()
 			if replies then
 				for replier_unit, _ in pairs(replies) do
@@ -309,28 +303,28 @@ mod:hook("SmartTagSystem", "_remove_tag_locally", function(func, self, tag_id, r
 					end
 				end
 			end
-			
+
 			local target_unit = tag:target_unit()
 			if target_unit and ALIVE[target_unit] and not self._unit_extension_data[target_unit] then
 				tag._target_unit = nil
 			end
 		end
 	end
-	
+
 	func(self, tag_id, reason)
 end)
 
 mod:hook("SmartTag", "display_name", function(func, self)
 	local target_unit = self._target_unit
 	if target_unit then
-		local success, smart_tag_extension = pcall(function() 
+		local success, smart_tag_extension = pcall(function()
 			return ScriptUnit.has_extension(target_unit, "smart_tag_system")
 		end)
-		
+
 		if not success or not smart_tag_extension then
 			return self._template and self._template.display_name or "n/a"
 		end
 	end
-	
+
 	return func(self)
 end)
