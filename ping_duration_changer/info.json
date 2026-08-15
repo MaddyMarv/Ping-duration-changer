@@ -3,7 +3,9 @@
     "author": "IndicaBunny",
     "version": "1.7",
     "source": "https://github.com/MaddyMarv/Ping-duration-changer",
-    "kofi": "https://ko-fi.com/indicabunny",
+    "funding": {
+        "kofi": "https://ko-fi.com/indicabunny"
+    },
     "description": "Lets you change exactly how long pings stick around on your screen.",
     "order": {
         "require": [],
