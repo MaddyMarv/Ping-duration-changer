@@ -6,4 +6,5 @@ Standalone mod that gives you sliders to adjust how many seconds a ping lasts be
 - Location Ping Duration (sec)
 - Objective Ping Duration (sec)
 
-[b]Links:[/b] [url=https://github.com/MaddyMarv/Ping-duration-changer]Source Code[/url] | [url=https://www.nexusmods.com/profile/indicabunny]Nexus Mods Profile[/url] | [url=https://ko-fi.com/indicabunny]Support Me on Ko-fi[/url]
+[b]Links:[/b]
+[url=https://github.com/MaddyMarv/Ping-duration-changer]Source Code[/url] | [url=https://www.nexusmods.com/profile/indicabunny]Nexus Mods Profile[/url] | [url=https://ko-fi.com/indicabunny]Support Me on Ko-fi[/url]
