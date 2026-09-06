@@ -7,7 +7,7 @@
     "funding": {
         "kofi": "https://ko-fi.com/indicabunny"
     },
-    "description": "Adjust how long enemy and item pings stay visible.",
+    "description": "Adjust how pings stay visible. As well as mute and disable pings.",
     "dependencies": {
         "required": [],
         "self_after": [],

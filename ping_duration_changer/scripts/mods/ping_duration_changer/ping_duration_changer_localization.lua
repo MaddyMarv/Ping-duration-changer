@@ -4,7 +4,7 @@ return {
 		["zh-cn"] = "标记持续时间修改器",
 	},
 	mod_description = {
-		en = "Adjust how long enemy and item pings stay visible.",
+		en = "Adjust how pings stay visible. As well as mute and disable pings.",
 		["zh-cn"] = "允许您自定义标记在地图上保持可见的时间。每个标记组都有独立的设置。",
 	},
 	duration_enemies = {

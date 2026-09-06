@@ -1,7 +1,7 @@
 ### [Ping Duration Changer](https://www.nexusmods.com/warhammer40kdarktide/mods/636)
 <img width="550" height="282" alt="image" src="https://github.com/user-attachments/assets/34a30c7c-2adc-48b2-9cd1-fc83d23ee9d9" />
 
-Adjust how long enemy and item pings stay visible.
+Adjust how pings stay visible. As well as mute and disable pings.
 
 **Options:**
 - Enemy Ping Duration (sec)

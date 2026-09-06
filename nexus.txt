@@ -1,4 +1,4 @@
-Adjust how long enemy and item pings stay visible.
+Adjust how pings stay visible. As well as mute and disable pings.
 
 [b]Options:[/b]
 - Enemy Ping Duration (sec)
