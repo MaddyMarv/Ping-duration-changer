@@ -1,4 +1,4 @@
-Standalone mod that gives you sliders to adjust how many seconds a ping lasts before it fades away. The default ping time can sometimes be too short or too long. 
+Adjust how long enemy and item pings stay visible.
 
 [b]Options:[/b]
 - Enemy Ping Duration (sec)
