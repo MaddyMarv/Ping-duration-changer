@@ -1,10 +1,28 @@
-Adjust how pings stay visible. As well as mute and disable pings.
+Adjust how long pings stay visible. As well as mute and disable certain pings.
 
 [b]Options:[/b]
-- Enemy Ping Duration (sec)
-- Item Ping Duration (sec)
-- Location Ping Duration (sec)
-- Objective Ping Duration (sec)
+
+[b]Apply To[/b]
+- Use Settings on Your Pings
+- Use Settings on Teammates' Pings
+
+[b]Duration (seconds)[/b]
+- Enemies Duration
+- Companion Targets Duration
+- Materials & Items Duration
+- Health Stations Duration
+- Location Pings Duration
+- Threat Warnings Duration
+- Attention Warnings Duration
+
+[b]Visibility[/b]
+- Disable Enemies
+- Disable Companion Targets
+- Disable Materials & Items
+- Disable Health Stations
+- Disable Location Pings
+- Disable Threat Warnings
+- Disable Attention Warnings
 
 [b]Links:[/b]
 [url=https://github.com/MaddyMarv/Ping-duration-changer]Source Code[/url] | [url=https://www.nexusmods.com/profile/indicabunny]Nexus Mods Profile[/url] | [url=https://ko-fi.com/indicabunny]Support Me on Ko-fi[/url]
