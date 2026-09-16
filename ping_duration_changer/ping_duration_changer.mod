@@ -1,6 +1,6 @@
 return {
 	run = function()
-		fassert(rawget(_G, "new_mod"), "`ping_duration_changer` requires the Darktide Mod Framework.")
+		fassert(rawget(_G, "new_mod"), "`ping_duration_changer` encountered an error loading the Darktide Mod Framework.")
 
 		new_mod("ping_duration_changer", {
 			mod_script       = "ping_duration_changer/scripts/mods/ping_duration_changer/ping_duration_changer",
