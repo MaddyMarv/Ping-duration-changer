@@ -3,7 +3,8 @@
 
 Adjust how long pings stay visible. As well as mute and disable certain pings.
 
-**Options:**
+<details>
+<summary><b>Mod Settings / Commands</b></summary>
 
 **Apply To**
 - Use Settings on Your Pings
@@ -26,5 +27,6 @@ Adjust how long pings stay visible. As well as mute and disable certain pings.
 - Disable Location Pings
 - Disable Threat Warnings
 - Disable Attention Warnings
+</details>
 
 🔗 **Links:** [Source Code](https://github.com/MaddyMarv/Ping-duration-changer) | [Nexus Mods Profile](https://www.nexusmods.com/profile/indicabunny) | [Support Me on Ko-fi](https://ko-fi.com/indicabunny)

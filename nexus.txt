@@ -1,7 +1,7 @@
 Adjust how long pings stay visible. As well as mute and disable certain pings.
 
-[b]Options:[/b]
-
+[b]Mod Settings / Commands:[/b]
+[spoiler]
 [b]Apply To[/b]
 - Use Settings on Your Pings
 - Use Settings on Teammates' Pings
@@ -23,6 +23,7 @@ Adjust how long pings stay visible. As well as mute and disable certain pings.
 - Disable Location Pings
 - Disable Threat Warnings
 - Disable Attention Warnings
+[/spoiler]
 
 [b]Links:[/b]
 [url=https://github.com/MaddyMarv/Ping-duration-changer]Source Code[/url] | [url=https://www.nexusmods.com/profile/indicabunny]Nexus Mods Profile[/url] | [url=https://ko-fi.com/indicabunny]Support Me on Ko-fi[/url]
